@@ -15,7 +15,7 @@
 ### Prerequisites
 
 #### General Natural Language Processing
-&emsp; To process the text data to be run through the models, it needs to be cleaned and To acoomplish this, two modules from nltk need to be downloaded. These include `punkt` , `stopwords` and `wordnet`. These modules are critical to the overall program, and without them the tokenization of text data cannot be done, and the program will fail.\
+&emsp; To process the text data to be run through the models, it needs to be cleaned and To acoomplish this, two modules from nltk need to be downloaded. These include `punkt` , `stopwords` and `wordnet`. These modules are critical to the overall program, and without them the tokenization of text data cannot be done, and the program will fail.
 ```
 from nltk import word_tokenize 
 nltk.download('punkt') 
@@ -39,10 +39,23 @@ tokenizer = TweetTokenizer(strip_handles=True)
 | 1467811193  | @nationwideclass no, it's not behaving at all. i'm mad. why am i here? because I can't see you all over there.  | 	[no, , , it's, not, behaving, at, all, ., i'm, mad, ., why, am, i, here, ?, because, I, can't ,see, you, all, over, there, .]| 
 
 
+#### Vector Creation
+
+```
+from sklearn.feature_extraction.text import TfidfVectorizer
+```
+
+#### Model Evaluation
+
+```
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+```
+
 ## Usage
 
 ### Corpus Input
-&emsp; As mentioned, the code was developed utilizing a set of financial news headlines from the perpective of a retail investor. This dataset can be found on [Kaggle](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) if the data needs to be inspected if trying to replicate initial pass of the model. Because of this the model makes specific reference to this one dataset and alterations would need to be made to apply to a different corpus set.\
+&emsp; As mentioned, the code was developed utilizing a large set of tweets f. This dataset can be found on [Kaggle](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) if the data needs to be inspected if trying to replicate initial pass of the model. Because of this the model makes specific reference to this one dataset and alterations would need to be made to apply to a different corpus set.\
 &emsp; An example of needed alterations include any time that `data['sentiment']` or `data['newsheadline']` are called:
 ```
 #Create training and testing datasets
