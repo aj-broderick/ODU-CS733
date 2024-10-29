@@ -15,7 +15,7 @@
 ### Prerequisites
 
 #### General Natural Language Processing
-&emsp; To process the text data to be run through the models, it needs to be cleaned and To acoomplish this, two modules from nltk need to be downloaded. These include `punkt` , `stopwords` and `wordnet`. These modules are critical to the overall program, and without them the tokenization of text data cannot be done, and the program will fail.
+&emsp; To process the text data to be run through the models, it needs to be cleaned and To accomplish this, two modules from nltk need to be downloaded. These include `punkt` , `stopwords` and `wordnet`. These modules are critical to the overall program, and without them the tokenization of text data cannot be done, and the program will fail.
 ```
 from nltk import word_tokenize 
 nltk.download('punkt') 
@@ -40,26 +40,23 @@ tokenizer = TweetTokenizer(strip_handles=True)
 
 
 #### Vector Creation
+&emsp; TF-DIF was chosen as the feature extraction method for the sentiment analysis. This was done over a bag of words approach since it's a little more nuanced in the way that each of the words is given a weight as opposed to simply counting the words. In a model of this size, the words that have the higher frequency will have a larger impact to the end output.
 
 ```
 from sklearn.feature_extraction.text import TfidfVectorizer
 ```
 
-#### Model Evaluation
-
-```
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
-```
-
 ## Usage
 
 ### Corpus Input
-&emsp; As mentioned, the code was developed utilizing a large set of tweets f. This dataset can be found on [Kaggle](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) if the data needs to be inspected if trying to replicate initial pass of the model. Because of this the model makes specific reference to this one dataset and alterations would need to be made to apply to a different corpus set.\
-&emsp; An example of needed alterations include any time that `data['sentiment']` or `data['newsheadline']` are called:
+&emsp; As mentioned, the code was developed utilizing tweets from a preprocssed file, and has a set number and ordering of columns. Because of this the model makes specific reference to this one dataset and alterations would need to be made to apply to a different corpus set.\
+&emsp; An example of needed alterations include any time that `df['text']` or `df['target']` are called:
 ```
 #Create training and testing datasets
-X_train, X_test = train_test_split(data['newsheadline'], test_size=0.2, random_state=42, stratify=data['sentiment'])
+y = df['target']
+
+vectorizer = TfidfVectorizer(max_features = 228117)
+X_vector = vectorizer.fit_transform(df['text'])
 ```
 
 ### Outputs
